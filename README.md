@@ -16,7 +16,7 @@ Estou construindo habilidades reais de administração de servidores Linux de fo
 ## 🗺️ Roadmap de aprendizado
 
 ```
-Fase 1 → Fundamentos do terminal
+Fase 1 → Fundamentos do terminal    ✅ Concluída
 Fase 2 → Arquivos, usuários e permissões  ✅ Concluída
 Fase 3 → Rede, serviços e processos
 Fase 4 → Automação e projetos finais
