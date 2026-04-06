@@ -198,11 +198,11 @@ sudo ./fase-2-permissoes/scripts/gerenciar-acesso.sh -h
 
 ## 📬 Contato
 
-Feito por **[seu nome]** — estudando Linux para administração de servidores.  
+Feito por **John, The Sec** — estudando Linux para administração de servidores.  
 Aberto a feedbacks, sugestões e conexões!
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://linkedin.com/in/seu-perfil)
-[![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/seu-usuario)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/joaomarc0s/)
+[![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/johnthesec)
 
 ---
 
