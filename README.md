@@ -16,9 +16,9 @@ Estou construindo habilidades reais de administração de servidores Linux de fo
 ## 🗺️ Roadmap de aprendizado
 
 ```
-Fase 1 → Fundamentos do terminal    ✅ Concluída
+Fase 1 → Fundamentos do terminal          ✅ Concluída
 Fase 2 → Arquivos, usuários e permissões  ✅ Concluída
-Fase 3 → Rede, serviços e processos
+Fase 3 → Rede, serviços e processos       ✅ Concluída
 Fase 4 → Automação e projetos finais
 ```
 
@@ -50,14 +50,13 @@ linux-sysadmin-portfolio/
 │
 ├── fase-3-rede-servicos/
 │   ├── scripts/
-│   │   └── health-check.sh                  ← monitor de CPU, RAM, disco e serviços
+│   │   └── health-check.sh                  ← monitor de RAM, disco e serviços
 │   ├── configs/
 │   │   └── nginx.conf                       ← configuração comentada do nginx
 │   ├── writeups/
-│   │   ├── nginx-setup.md                   ← subindo um servidor web do zero
-│   │   └── ssh-hardening.md                 ← antes/depois do sshd_config
+│   │   └── writeup-fase3.md                 ← nginx, systemd, ufw e health check
 │   └── desafios/
-│       └── ssh-keygen-setup.md              ← autenticação por chave + hardening
+│       └── ssh-hardening.md                 ← hardening de SSH com chave ED25519
 │
 ├── fase-4-automacao/
 │   ├── scripts/
@@ -103,34 +102,34 @@ Leitura e modificação de permissões com `chmod` e `chown`, gerenciamento de g
 | `writeup-permissoes.md` | Writeup | chmod, chown, notação octal, cadeia de acesso |
 | `desafio-auditoria.md` | Desafio | Auditoria de permissões inseguras com find |
 
-**Conceitos cobertos:**
-- Leitura de permissões com `ls -l` e `stat`
-- Notação octal: `r=4, w=2, x=1`
-- `chmod` para controlar acesso a arquivos e scripts
-- `chown dono:grupo` para transferir posse
-- `groupadd`, `usermod -aG`, `gpasswd -d` para gerenciar grupos
-- Cadeia de permissões: diretório pai também precisa permitir acesso
-- `find -perm -o+w` para detectar arquivos world-writable
-- `find -perm -4000` para detectar arquivos SUID
-- Bit SUID: executa com privilégios do dono do arquivo
-
 ---
 
 ### Fase 3 — Rede, Serviços & Processos
-**Status:** 🔜 Próxima fase
+**Status:** ✅ Concluída
 
-nginx, systemd, firewall com `ufw`, monitoramento de processos e hardening de SSH.
+nginx, systemd, firewall com `ufw`, monitoramento de recursos e hardening de SSH.
 
 | Entrega | Tipo | Descrição |
 |---|---|---|
-| `health-check.sh` | Script | Monitor de saúde com output colorido |
-| `nginx-setup.md` | Writeup | Servidor web do zero |
-| `ssh-hardening.md` | Desafio | SSH sem senha, porta customizada |
+| `health-check.sh` | Script | Monitor de RAM, disco e serviços com flags |
+| `nginx.conf` | Config | Configuração comentada do nginx |
+| `writeup-fase3.md` | Writeup | nginx, systemd, ufw e health check |
+| `ssh-hardening.md` | Desafio | Hardening de SSH com chave ED25519 |
+
+**Conceitos cobertos:**
+- Modelo master/worker do nginx
+- Diagnóstico de conflito de porta com `ss -tlnp`
+- Controle de serviços com `systemctl` — start, stop, reload, restart, enable, disable
+- Diferença entre `reload` (mantém conexões) e `restart` (recria tudo)
+- Diferença entre `stop` (para agora) e `disable` (impede boot automático)
+- Firewall com `ufw` — política `deny incoming` por padrão
+- SSH restrito por IP — evita ataques de força bruta
+- Hardening de SSH — chave ED25519, sem senha, sem root login
 
 ---
 
 ### Fase 4 — Automação & Projeto Final
-**Status:** ⏳ Planejada
+**Status:** 🔜 Próxima fase
 
 `cron`, scripts avançados e deploy de um servidor LAMP completo como projeto integrador.
 
@@ -149,11 +148,12 @@ nginx, systemd, firewall com `ufw`, monitoramento de processos e hardening de SS
 | `find` / `grep` | Busca e filtragem de arquivos |
 | `chmod` / `chown` | Controle de permissões |
 | `groupadd` / `usermod` / `gpasswd` | Gerenciamento de usuários e grupos |
-| `nginx` / `apache` | Servidores web |
-| `systemd` | Gerenciamento de serviços |
-| `ssh` / `ufw` | Acesso remoto seguro e firewall |
+| `nginx` | Servidor web |
+| `systemctl` | Gerenciamento de serviços |
+| `ufw` | Firewall e controle de portas |
+| `ss` | Monitoramento de portas e conexões |
+| `ssh` / `ssh-keygen` | Acesso remoto seguro e geração de chaves |
 | `cron` | Agendamento de tarefas |
-| `mysql` | Banco de dados |
 
 ---
 
@@ -178,8 +178,13 @@ Clone o repositório e dê permissão de execução antes de rodar qualquer scri
 git clone https://github.com/seu-usuario/linux-sysadmin-portfolio.git
 cd linux-sysadmin-portfolio
 
-chmod +x fase-2-permissoes/scripts/gerenciar-acesso.sh
-sudo ./fase-2-permissoes/scripts/gerenciar-acesso.sh -h
+# Health check do servidor
+chmod +x fase-3-rede-servicos/scripts/health-check.sh
+./fase-3-rede-servicos/scripts/health-check.sh
+
+# Com flags
+./fase-3-rede-servicos/scripts/health-check.sh -s   # só serviços
+./fase-3-rede-servicos/scripts/health-check.sh -r   # só recursos
 ```
 
 > **Atenção:** scripts das fases 2 e 3 envolvem criação de usuários e alteração de serviços. Leia o writeup correspondente antes de executar em produção.
@@ -191,19 +196,19 @@ sudo ./fase-2-permissoes/scripts/gerenciar-acesso.sh -h
 - [x] Repositório criado e estruturado
 - [x] Fase 1 concluída
 - [x] Fase 2 concluída
-- [ ] Fase 3 concluída
+- [x] Fase 3 concluída
 - [ ] Fase 4 e projeto final concluídos
 
 ---
 
 ## 📬 Contato
 
-Feito por **John, The Sec** — estudando Linux para administração de servidores.  
+Feito por **[seu nome]** — estudando Linux para administração de servidores.  
 Aberto a feedbacks, sugestões e conexões!
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/joaomarc0s/)
-[![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/johnthesec)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://linkedin.com/in/seu-perfil)
+[![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/seu-usuario)
 
 ---
 
-*Última atualização: 2026-04-04*
+*Última atualização: 2026-04-08*
