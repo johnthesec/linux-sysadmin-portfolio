@@ -1,0 +1,39 @@
+# crontab.txt — agendamentos configurados
+# Fase 4 — Linux SysAdmin Portfolio
+#
+# Este arquivo documenta os jobs cron configurados no servidor.
+# Para aplicar: crontab crontab.txt
+# Para verificar: crontab -l
+#
+# Sintaxe:
+#   m h dom mon dow   comando
+#   │ │  │   │   │
+#   │ │  │   │   └── dia da semana (0=domingo, 6=sábado)
+#   │ │  │   └────── mês (1-12)
+#   │ │  └────────── dia do mês (1-31)
+#   │ └──────────────hora (0-23)
+#   └────────────────minuto (0-59)
+#
+# Referência rápida:
+#   *        → qualquer valor
+#   */5      → a cada 5 unidades
+#   0 2 * * *   → todo dia às 02h00
+#   0 2 * * 0   → todo domingo às 02h00
+#   0 0 1 * *   → dia 1 de cada mês à meia-noite
+
+# ─── BACKUP ──────────────────────────────────────────────────
+# Backup diário de ~/dados-importantes com rotação de 7 dias
+# Roda todo dia às 02h00 — horário de baixo tráfego
+# Saída (stdout + stderr) gravada em cron.log para auditoria
+0 2 * * * /home/john/backup-rotativo.sh >> /home/john/backups/cron.log 2>&1
+
+# ─── EXEMPLOS COMENTADOS (não ativos) ────────────────────────
+
+# Health check a cada 5 minutos — útil em monitoramento ativo
+# */5 * * * * /home/john/health-check.sh >> /home/john/logs/health.log 2>&1
+
+# Limpeza de arquivos temporários todo domingo às 03h00
+# 0 3 * * 0 find /tmp -mtime +7 -delete >> /home/john/logs/limpeza.log 2>&1
+
+# Relatório semanal de uso de disco toda segunda às 08h00
+# 0 8 * * 1 df -h >> /home/john/logs/disco.log 2>&1
