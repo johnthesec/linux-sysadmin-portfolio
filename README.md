@@ -19,7 +19,7 @@ Estou construindo habilidades reais de administração de servidores Linux de fo
 Fase 1 → Fundamentos do terminal          ✅ Concluída
 Fase 2 → Arquivos, usuários e permissões  ✅ Concluída
 Fase 3 → Rede, serviços e processos       ✅ Concluída
-Fase 4 → Automação e projetos finais
+Fase 4 → Automação e projetos finais      ✅ Concluída
 ```
 
 ---
@@ -129,7 +129,7 @@ nginx, systemd, firewall com `ufw`, monitoramento de recursos e hardening de SSH
 ---
 
 ### Fase 4 — Automação & Projeto Final
-**Status:** 🔜 Próxima fase
+**Status:** ✅ Concluída
 
 `cron`, scripts avançados e deploy de um servidor LAMP completo como projeto integrador.
 
@@ -197,7 +197,7 @@ chmod +x fase-3-rede-servicos/scripts/health-check.sh
 - [x] Fase 1 concluída
 - [x] Fase 2 concluída
 - [x] Fase 3 concluída
-- [ ] Fase 4 e projeto final concluídos
+- [x] Fase 4 e projeto final concluídos
 
 ---
 
